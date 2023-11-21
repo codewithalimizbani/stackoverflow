@@ -23,7 +23,7 @@ const Theme = () => {
         >
           {mode === "dark" ? (
             <Image
-              src="/assets/icons/sun.svg"
+              src="/assets/icons/moon.svg"
               alt="Light Mode"
               width={20}
               height={20}
@@ -31,7 +31,7 @@ const Theme = () => {
             />
           ) : (
             <Image
-              src="/assets/icons/moon.svg"
+              src="/assets/icons/sun.svg"
               alt="Dark Mode"
               width={20}
               height={20}

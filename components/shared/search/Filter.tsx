@@ -28,12 +28,12 @@ const Filter = ({ filters, outherClasses, containerClasses }: Props) => {
             <SelectValue placeholder="select a filter" />
           </div>
         </SelectTrigger>
-        <SelectContent>
+        <SelectContent className="background-light900_dark300">
           {filters.map((item) => (
             <SelectItem
               key={item.value}
               value={item.value}
-              className="capitalize"
+              className="text-dark500_light700 capitalize"
             >
               {item.name}
             </SelectItem>
