@@ -18,10 +18,17 @@ import { Input } from "@/components/ui/input";
 import { QuestionSchema } from "@/lib/validations";
 import { Badge } from "../ui/badge";
 import Image from "next/image";
+import { createQuestion } from "@/lib/actions/question.action";
+import { useRouter, usePathname } from "next/navigation";
 
 const type: any = "create";
+interface Props {
+  monogoUserId: string;
+}
 
-export default function Question() {
+export default function Question({ monogoUserId }: Props) {
+  const router = useRouter();
+  const pathname = usePathname();
   const editorRef = useRef(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -33,13 +40,17 @@ export default function Question() {
       tags: [],
     },
   });
-  function onSubmit(values: z.infer<typeof QuestionSchema>) {
+  async function onSubmit(values: z.infer<typeof QuestionSchema>) {
     setIsSubmitting(true);
 
     try {
-      //  make a request to the server -> create a question
-      // contain all  the form data
-      //  if success -> redirect to the question page
+      await createQuestion({
+        title: values.title,
+        content: values.explanation,
+        tags: values.tags,
+        author: JSON.parse(monogoUserId),
+      });
+      router.push("/");
     } catch (error) {
       console.log(error);
     } finally {
@@ -128,6 +139,8 @@ export default function Question() {
                     // @ts-ignore
                     editorRef.current = editor;
                   }}
+                  onBlur={field.onBlur}
+                  onEditorChange={(content) => field.onChange(content)}
                   initialValue=""
                   init={{
                     height: 350,
