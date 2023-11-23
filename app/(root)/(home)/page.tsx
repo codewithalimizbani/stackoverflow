@@ -6,40 +6,44 @@ import Filter from "@/components/shared/search/Filter";
 import LocalSearchbar from "@/components/shared/search/LocalSearchbar";
 import { Button } from "@/components/ui/button";
 import { HomePageFilters } from "@/constants/filters";
+import { getQuestions } from "@/lib/actions/question.action";
 import Link from "next/link";
 
-const questions = [
-  {
-    _id: 1,
-    title:
-      "The Lightning Component c:LWC_PizzaTracker generated invalid output for field status. Error How to solve this",
-    tags: [
-      { _id: "1", name: "salesforce" },
-      { _id: "2", name: "python" },
-    ],
-    author: { _id: "1", name: "John Doe", picture: "/assets/icons/avatar.svg" },
-    upvotes: 132420,
-    views: 1000000,
-    answers: [],
-    createdAt: new Date("2021-09-10T08:19:08.000Z"),
-  },
-  {
-    _id: 2,
-    title: "Cascading Deletes in Salesforce",
-    tags: [
-      { _id: "2", name: "Java" },
-      { _id: "2", name: "python" },
-    ],
-    author: { _id: "2", name: "John Doe", picture: "/assets/icons/avatar.svg" },
-    upvotes: 100000,
-    views: 120000,
-    answers: [
-      /* array of Answer objects */
-    ],
-    createdAt: new Date("2023-09-10T08:19:08.000Z"),
-  },
-];
-export default function Home() {
+// const questions = [
+//   {
+//     _id: 1,
+//     title:
+//       "The Lightning Component c:LWC_PizzaTracker generated invalid output for field status. Error How to solve this",
+//     tags: [
+//       { _id: "1", name: "salesforce" },
+//       { _id: "2", name: "python" },
+//     ],
+//     author: { _id: "1", name: "John Doe", picture: "/assets/icons/avatar.svg" },
+//     upvotes: 132420,
+//     views: 1000000,
+//     answers: [],
+//     createdAt: new Date("2021-09-10T08:19:08.000Z"),
+//   },
+//   {
+//     _id: 2,
+//     title: "Cascading Deletes in Salesforce",
+//     tags: [
+//       { _id: "2", name: "Java" },
+//       { _id: "2", name: "python" },
+//     ],
+//     author: { _id: "2", name: "John Doe", picture: "/assets/icons/avatar.svg" },
+//     upvotes: 100000,
+//     views: 120000,
+//     answers: [
+//       /* array of Answer objects */
+//     ],
+//     createdAt: new Date("2023-09-10T08:19:08.000Z"),
+//   },
+// ];
+export default async function Home() {
+  const result = await getQuestions({});
+  console.log(result.questions);
+
   return (
     <>
       <div className=" flex w-full flex-col-reverse justify-between sm:flex-row sm:items-center">
@@ -66,8 +70,8 @@ export default function Home() {
       </div>
       <HomeFilters />
       <div className="mt-10 flex w-full flex-col gap-6">
-        {questions.length > 0 ? (
-          questions.map((question) => (
+        {result.questions.length > 0 ? (
+          result.questions.map((question) => (
             <Questioncard
               key={question._id}
               _id={question._id}

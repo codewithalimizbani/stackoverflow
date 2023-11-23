@@ -49,6 +49,7 @@ export default function Question({ monogoUserId }: Props) {
         content: values.explanation,
         tags: values.tags,
         author: JSON.parse(monogoUserId),
+        path: pathname,
       });
       router.push("/");
     } catch (error) {
