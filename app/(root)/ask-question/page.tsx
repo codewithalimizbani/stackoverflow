@@ -8,6 +8,7 @@ const Page = async () => {
   // const { userId } = auth();
   const userId = "123456";
   if (!userId) redirect("/sign-in");
+  console.log(userId);
 
   const monogoUser = await getUserById({ userId });
 
